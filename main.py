@@ -4,10 +4,7 @@ import threading
 
 from selenium import webdriver
 
-driver = webdriver.Chrome('./chromedriver')
-
-url = 'https://www.freitag.ch/en/f11'
-driver.get(url)
+temp = "cMjJtWfBiVoWWaaCyeKtHMUPGwdml7YMqhIy1QorDSAAAAF6spKTvA"
 
 def get_new_items():
     driver.refresh()
@@ -28,7 +25,7 @@ def send_api(lists):
 
     # 사용자 토큰
     headers = {
-        "Authorization": "Bearer " + "aOKDodf6i8AmPxaSBR3yaXOhtvAIWVLHcaj5TAo9dNkAAAF6r50f9w"
+        "Authorization": "Bearer " + temp
     }
 
     lists = [{"title": '가방',
@@ -79,11 +76,11 @@ def call():
     else:
         print('Nothing New')
 
-    threading.Timer(300, call).start()
+    threading.Timer(120, call).start()
 
 
 if __name__ == "__main__":
-    driver = webdriver.Chrome('./chromedriver')
+    driver = webdriver.Chrome(executable_path=r'C:\Users\Sangwon\Desktop\freitag-crawler\chromedriver.exe')
     url = 'https://www.freitag.ch/en/f11'
     driver.get(url)
     #driver.find_element_by_css_selector('body > div:nth-child(6) > div > div > div:nth-child(3) > a').click()
