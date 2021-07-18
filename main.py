@@ -1,10 +1,11 @@
 import json
 import requests
-import threading
+import schedule
+import time
+
+from refresh import tokens
 
 from selenium import webdriver
-
-temp = "cMjJtWfBiVoWWaaCyeKtHMUPGwdml7YMqhIy1QorDSAAAAF6spKTvA"
 
 def get_new_items():
     driver.refresh()
@@ -25,7 +26,7 @@ def send_api(lists):
 
     # 사용자 토큰
     headers = {
-        "Authorization": "Bearer " + temp
+        "Authorization": "Bearer " + tokens['access_token']
     }
 
     lists = [{"title": '가방',
@@ -76,7 +77,8 @@ def call():
     else:
         print('Nothing New')
 
-    threading.Timer(120, call).start()
+
+schedule.every(1).minutes.do(call)
 
 
 if __name__ == "__main__":
@@ -87,3 +89,8 @@ if __name__ == "__main__":
 
     curr_items = []
     call()
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
+
