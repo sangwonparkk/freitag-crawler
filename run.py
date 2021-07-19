@@ -1,8 +1,7 @@
 import json
 import requests
-import schedule
-import time
 import threading
+import datetime
 
 from refresh_access import tokens
 
@@ -69,8 +68,10 @@ def send_api(lists):
     response = requests.post(url, data=data, headers=headers)
     if response.json().get('result_code') == 0:
         print('Success!')
+        print(datetime.datetime.now().time())
     else:
         print('Failed. Error Message: ' + str(response.json()))
+        print(datetime.datetime.now().time())
 
 
 def call():
@@ -82,8 +83,9 @@ def call():
                 send_api(new_items[i * 3:(i + 1) * 3])
     else:
         print('Nothing New')
+        print(datetime.datetime.now().time())
 
-    threading.Timer(120, call).start()
+    threading.Timer(60, call).start()
 
 
 if __name__ == "__main__":

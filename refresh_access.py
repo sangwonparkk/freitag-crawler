@@ -1,7 +1,6 @@
 import json
 import requests
-import schedule
-import time
+import datetime
 import threading
 
 url = "https://kauth.kakao.com/oauth/token"
@@ -16,7 +15,8 @@ data = {
 def job():
     r = requests.post(url, data=data)
     print("Refreshed")
-    threading.Timer(19800, job).start()
+    print(datetime.datetime.now().time())
+    threading.Timer(20000, job).start()
     return r
 
 
